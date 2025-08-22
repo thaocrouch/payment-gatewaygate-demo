@@ -1,0 +1,11 @@
+global using Application.Interfaces;
+global using Domain.Entities;
+global using Infrastructure.Persistence;
+global using Microsoft.AspNetCore.Mvc;
+global using Asp.Versioning;
+global using System;
+global using System.Threading.Tasks;
+global using Newtonsoft.Json;
+global using PaymentGateway.Api.Common;
+global using PaymentGateway.Api.Extensions;
+global using PaymentGateway.Api.Models;

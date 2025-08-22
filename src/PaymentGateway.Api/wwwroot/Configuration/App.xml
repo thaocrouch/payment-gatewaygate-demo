@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PaymentGateway.Api</name>
+    </assembly>
+    <members>
+        <member name="P:PaymentGateway.Api.Models.CreateOrderRequest.UserId">
+            <summary>
+            UserId - Guid or Ulid
+            </summary>
+            <example>D57B3468-5A64-4E6E-BBBA-606BFE11F22F</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.CreateOrderRequest.Name">
+            <summary>
+            Name of invoice
+            </summary>
+            <example>Invoid abc112233</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.CreateOrderRequest.Amount">
+            <summary>
+            Payment amount
+            </summary>
+            <example>120000</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.CreateOrderRequest.PaymentMethod">
+            <summary>
+            Payment method, ref payment method list.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.CreateOrderRequest.PaymentSubType">
+            <summary>
+            Type of transaction: one-time, recurring,...
+            </summary>
+            <example>0</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.UpdateOrderRequest.Status">
+            <summary>
+            Status of transaction, ref Transaction status list.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.UpdateOrderRequest.ErrorCode">
+            <summary>
+            Process error code
+            </summary>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.UpdateOrderRequest.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.FilterOrderRequest.PageNumber">
+            <example>1</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.FilterOrderRequest.PageSize">
+            <example>10</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.FilterOrderRequest.Name">
+            <summary>
+            Invoice name
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.UserFilterOrderRequest.PageNumber">
+            <example>1</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.UserFilterOrderRequest.PageSize">
+            <example>10</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.UserFilterOrderRequest.UserId">
+            <example>D57B3468-5A64-4E6E-BBBA-606BFE11F22F</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.OrderMessageRequest.Id">
+            <example>Order-1111</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.OrderMessageRequest.UserId">
+            <example>D57B3468-5A64-4E6E-BBBA-606BFE11F22F</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.OrderMessageRequest.Status">
+            <example>1</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.OrderPayRequest.Id">
+            <example>Order-1111</example>
+        </member>
+        <member name="P:PaymentGateway.Api.Models.OrderPayRequest.Status">
+            <summary>
+            Success: 1, Fail: -1
+            </summary>
+            <example>1</example>
+        </member>
+    </members>
+</doc>

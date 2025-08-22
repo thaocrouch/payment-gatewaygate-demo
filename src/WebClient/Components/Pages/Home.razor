@@ -1,0 +1,40 @@
+@page "/"
+
+<h3>Payment Gateway Client</h3>
+
+<div class="card">
+    <div class="card-body">
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Select user</label>
+            <select class="form-select" id="inputGroupSelect01" @onchange="SelectedUserChanged">
+                <option selected value="D57B3468-5A64-4E6E-BBBA-606BFE11F22F">User 1</option>
+                <option value="74CD17B1-7002-4A8D-9C72-0EDB8520A9E6">User 2</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Name</span>
+            <input type="text" class="form-control" placeholder="Order Name" @bind="orderRequest.Name" @bind:event="oninput">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Amount</span>
+            <input type="number" class="form-control" placeholder="Order Name" @bind="orderRequest.Amount" @bind:event="oninput">
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text">Payment Method</label>
+            <select class="form-select" @onchange="SelectedPaymentMethodChanged">
+                <option selected value="0">Stripe</option>
+                <option value="1">MoMo</option>
+                <option value="2">ZaloPay</option>
+                <option value="3">VNPay</option>
+            </select>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-sm btn-primary" @onclick="CreateOrder">Create order</button>
+    </div>
+</div>
+
+@if (isShowQrCode)
+{
+    <QrCodeModal transaction="@qrCode" closeModal="CloseQR" isProcessing="@isPaymentProcessing" payNow="PayNow" />
+}

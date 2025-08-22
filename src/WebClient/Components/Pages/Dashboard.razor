@@ -1,0 +1,84 @@
+@page "/orders"
+@using System.Diagnostics
+@using WebClient.Helpers
+@using WebClient.Models
+@using WebClient.Services
+<h3>Orders</h3>
+<div class="card">
+    <div class="card-header">
+        <input class="form-control form-control-sm" placeholder="Name of order..." @bind="request.Name" @bind:event="oninput" @onkeyup="ChangeInputData"/>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            @foreach (var item in data)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Amount.FormatPriceVn()</td>
+                    <td>@GetStatus(item.Status)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <!-- Paging here -->
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public OrderService orderService { get; set; }
+    
+    [Inject]
+    private IJSRuntime _js { get; set; }
+
+    private FilterOrderRequest request { get; set; } = new () { PageNumber = 1, PageSize = 100};
+    
+    private OrderPaging page { get; set; } = new();
+    private IEnumerable<Order> data = new List<Order>();
+
+    private string GetStatus(int status)
+    {
+        switch (status)
+        {
+            case -1: return "Fail"; 
+            case 0: return "Pending";
+            case 1: return "Success";
+            default: return "Unknown";
+        }
+    }
+    
+    private async Task ChangeInputData(KeyboardEventArgs args)
+    {
+        await FetchData();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    private async Task FetchData()
+    {
+        var rs = await orderService.FilterAsync(request);
+        if (rs.code == 0)
+        {
+            data = rs.data?.Total == 0 ? new List<Order>() : rs.data.data;
+        }
+        else
+        {
+            await _js.InvokeVoidAsync("error", rs.message);
+        }
+    }
+
+}
