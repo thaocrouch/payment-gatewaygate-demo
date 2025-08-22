@@ -53,7 +53,7 @@ The system uses clean architecture with the following components:
 
 Overview of the system:
 
-![Overview](/img/structure.svg "Overview system")
+![Overview](/docs/img/structure.svg "Overview system")
 
 ## Data Model & Schemas (use Dbdocs if time permits)
 
@@ -95,33 +95,33 @@ APIs serving the system:
 
 ### Create New Order
 
-![Overview](/img/create_order.png "Overview system")
+![Overview](/docs/img/create_order.png "Overview system")
 
 ### Update Order
 
-![Overview](/img/update_order.png "Overview system")
+![Overview](/docs/img/update_order.png "Overview system")
 
 ### Delete Order
 
-![Overview](/img/delete_order.png "Overview system")
+![Overview](/docs/img/delete_order.png "Overview system")
 
 ### Search Orders
 
-![Overview](/img/get_orders.png "Overview system")
+![Overview](/docs/img/get_orders.png "Overview system")
 
 ### Order Details
 
-![Overview](/img/detail_order.png "Overview system")
+![Overview](/docs/img/detail_order.png "Overview system")
 
 ### IPN - Record order information between backend systems (banking, payment partners (Stripe, Momo, ZaloPay, etc.))
 
-![Overview](/img/ipn_order.png "Overview system")
+![Overview](/docs/img/ipn_order.png "Overview system")
 
 ## Source Code
 
 Uses Clean Architecture for the project.
 
-![Overview](/img/source_code.png "Overview system")
+![Overview](/docs/img/source_code.png "Overview system")
 
 For the scope of this demo, I am applying Aspire to the system.
 
@@ -138,13 +138,13 @@ For the scope of this demo, I am applying Aspire to the system.
 
 Run on Aspire AppHost or build and run on a Kubernetes system.
 
-![Overview](/img/aspire_run.png "Overview system")
+![Overview](/docs/img/aspire_run.png "Overview system")
 
-![Overview](/img/aspire1.png "Overview system")
+![Overview](/docs/img/aspire1.png "Overview system")
 
-![Overview](/img/aspire2.png "Overview system")
+![Overview](/docs/img/aspire2.png "Overview system")
 
-**Demo**: [here](./img/demo.mp4)
+**Demo**: [here](./docs/img/demo.mp4)
 
 ## Technologies Used in the Project
 
