@@ -1,15 +1,12 @@
 using System.Net;
 using System.Text;
-using Newtonsoft.Json;
-using WebClient.Helpers;
-using WebClient.Models;
 
 namespace WebClient.Services;
 
 public class OrderService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger<OrderService>  _logger;
+    private readonly ILogger<OrderService> _logger;
 
     public OrderService(IHttpClientFactory httpClientFactory, ILogger<OrderService> logger)
     {
@@ -23,7 +20,7 @@ public class OrderService
         var url = "api/v1/Orders";
         using (var client = _httpClientFactory.CreateClient("backend"))
         {
-            using (var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(orderRequest), 
+            using (var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(orderRequest),
                        Encoding.UTF8, "application/json")))
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -33,24 +30,25 @@ public class OrderService
                 }
                 else
                 {
-                    result.code = (int) response.StatusCode;
+                    result.code = (int)response.StatusCode;
                     result.message = body;
                 }
-                _logger.LogInformation("{tag} request: {url} - param : {param} - response: {response}", "backend", url, 
+
+                _logger.LogInformation("{tag} request: {url} - param : {param} - response: {response}", "backend", url,
                     JsonConvert.SerializeObject(orderRequest), body);
             }
         }
 
         return result;
     }
-    
+
     public async Task<Result<bool>> NotifyIpnAsync(OrderIpnRequest request)
     {
         var result = new Result<bool>();
         var url = "api/v1/Orders/ipn";
         using (var client = _httpClientFactory.CreateClient("backend"))
         {
-            using (var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(request), 
+            using (var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(request),
                        Encoding.UTF8, "application/json")))
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -60,17 +58,18 @@ public class OrderService
                 }
                 else
                 {
-                    result.code = (int) response.StatusCode;
+                    result.code = (int)response.StatusCode;
                     result.message = body;
                 }
-                _logger.LogInformation("{tag} request: {url} - param : {param} - response: {response}", "backend", url, 
+
+                _logger.LogInformation("{tag} request: {url} - param : {param} - response: {response}", "backend", url,
                     JsonConvert.SerializeObject(request), body);
             }
         }
 
         return result;
     }
-    
+
     public async Task<Result<OrderPaging>> FilterAsync(FilterOrderRequest request)
     {
         var result = new Result<OrderPaging>();
@@ -86,10 +85,11 @@ public class OrderService
                 }
                 else
                 {
-                    result.code = (int) response.StatusCode;
+                    result.code = (int)response.StatusCode;
                     result.message = body;
                 }
-                _logger.LogInformation("{tag} request: {url} - param : {param} - response: {response}", "backend", url, 
+
+                _logger.LogInformation("{tag} request: {url} - param : {param} - response: {response}", "backend", url,
                     JsonConvert.SerializeObject(request), body);
             }
         }

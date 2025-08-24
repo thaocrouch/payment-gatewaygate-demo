@@ -4,6 +4,24 @@ namespace Domain.Entities;
 
 public class Order
 {
+    public Order()
+    {
+    }
+
+    public Order(string userId, string name, decimal amount, int paymentMethod, int paymentSubType, DateTime expireDate)
+    {
+        Id = Guid.NewGuid().ToString();
+        UserId = userId;
+        Name = name;
+        Amount = amount;
+        PaymentMethod = paymentMethod;
+        PaymentSubType = paymentSubType;
+        ExpireDate = expireDate;
+        CreatedDate = DateTime.UtcNow;
+        UpdatedDate = DateTime.UtcNow;
+        Status = (int)TransactionStatus.PENDING;
+    }
+
     public string Id { get; set; }
     public string UserId { get; set; }
     public string Name { get; set; }
@@ -19,22 +37,6 @@ public class Order
     public DateTime ExpireDate { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
-
-    public Order() { }
-
-    public Order(string userId, string name, decimal amount, int paymentMethod, int paymentSubType, DateTime expireDate)
-    {
-        Id = Guid.NewGuid().ToString();
-        UserId = userId;
-        Name = name;
-        Amount = amount;
-        PaymentMethod = paymentMethod;
-        PaymentSubType = paymentSubType;
-        ExpireDate = expireDate;
-        CreatedDate = DateTime.UtcNow;
-        UpdatedDate = DateTime.UtcNow;
-        Status = (int) TransactionStatus.PENDING;
-    }
 
     public void UpdateStatus(int status, int errorCode = 0, string? errorMessage = null)
     {

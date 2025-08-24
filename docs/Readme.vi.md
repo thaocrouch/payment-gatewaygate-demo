@@ -160,7 +160,7 @@ Demo. [here](./img/demo.mp4)
 - Thực hiện triển khai:
   - Code base: 3h (done)
   - CRUD Order: 3h (done)
-  - Notify service: (pending)
+  - Notify service: 3h (done)
   - Publish/Consumer to RabbitMQ: 2h (done)
   - Build client web app: 6h (done)
     - Tích hợp SignalR

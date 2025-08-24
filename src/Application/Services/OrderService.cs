@@ -34,6 +34,7 @@ public class OrderService : IOrderService
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
         return false;
     }
 
@@ -50,10 +51,11 @@ public class OrderService : IOrderService
             result.data = await orderQuery.OrderByDescending(x => x.CreatedDate).Skip(offset).Take(pageSize)
                 .ToListAsync();
         }
+
         return result;
     }
 
-    
+
     public async Task<Order> GetOrderByIdAsync(string orderId)
     {
         var order = await _dbContext.Orders.FindAsync(orderId);
@@ -73,6 +75,7 @@ public class OrderService : IOrderService
             result.data = await orderQuery.OrderByDescending(x => x.CreatedDate).Skip(offset).Take(pageSize)
                 .ToListAsync();
         }
+
         return result;
     }
 
@@ -85,6 +88,7 @@ public class OrderService : IOrderService
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
         return false;
     }
 }

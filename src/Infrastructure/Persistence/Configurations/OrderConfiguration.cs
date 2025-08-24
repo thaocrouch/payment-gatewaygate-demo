@@ -28,7 +28,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         builder.Property(o => o.Amount)
             .HasColumnType("decimal(18,2)");
-        
+
         builder.Property(o => o.Note)
             .IsRequired(false);
 

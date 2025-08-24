@@ -7,7 +7,7 @@ using PaymentGateway.Api.OpenApi;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.AddRabbitMQClient(connectionName: "rabbitmq");
+builder.AddRabbitMQClient("rabbitmq");
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 
@@ -16,24 +16,18 @@ builder.Services.AddConfigApiVersion();
 builder.Services.AddConfigOpenApi();
 
 builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<ValidateModelFilter>();
-    options.Filters.Add<GlobalExceptionFilter>();
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
+    {
+        options.Filters.Add<ValidateModelFilter>();
+        options.Filters.Add<GlobalExceptionFilter>();
+    })
+    .ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; });
 builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 app.UseHttpsRedirection();
-app.MapGet("/", () =>
-{
-    return "Service is running.";
-}).WithMetadata(new ExcludeFromDescriptionAttribute());
+app.MapGet("/", () => { return "Service is running."; }).WithMetadata(new ExcludeFromDescriptionAttribute());
 
 app.UseOpenApiEndpoint();
 

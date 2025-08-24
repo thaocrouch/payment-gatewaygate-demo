@@ -13,11 +13,13 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Name</span>
-            <input type="text" class="form-control" placeholder="Order Name" @bind="orderRequest.Name" @bind:event="oninput">
+            <input type="text" class="form-control" placeholder="Order Name" @bind="orderRequest.Name"
+                   @bind:event="oninput">
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Amount</span>
-            <input type="number" class="form-control" placeholder="Order Name" @bind="orderRequest.Amount" @bind:event="oninput">
+            <input type="number" class="form-control" placeholder="Order Name" @bind="orderRequest.Amount"
+                   @bind:event="oninput">
         </div>
         <div class="input-group mb-3">
             <label class="input-group-text">Payment Method</label>
@@ -36,5 +38,5 @@
 
 @if (isShowQrCode)
 {
-    <QrCodeModal transaction="@qrCode" closeModal="CloseQR" isProcessing="@isPaymentProcessing" payNow="PayNow" />
+    <QrCodeModal transaction="@qrCode" closeModal="CloseQR" isProcessing="@isPaymentProcessing" payNow="PayNow"/>
 }

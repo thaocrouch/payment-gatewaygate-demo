@@ -160,7 +160,7 @@ Run on Aspire AppHost or build and run on a Kubernetes system.
 - Implementation:
   - Code base: 3h (done).
   - CRUD Order: 3h (done).
-  - Notify Service: (pending).
+  - Notify Service: 3h (done).
   - Publish/Consumer to RabbitMQ: 2h (done).
   - Build client web app: 6h (done).
     - Integrate SignalR.

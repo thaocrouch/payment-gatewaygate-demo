@@ -24,5 +24,7 @@ public class ValidateModelFilter : IActionFilter
         }
     }
 
-    public void OnActionExecuted(ActionExecutedContext context) { }
+    public void OnActionExecuted(ActionExecutedContext context)
+    {
+    }
 }

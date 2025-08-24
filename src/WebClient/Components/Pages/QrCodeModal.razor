@@ -1,6 +1,5 @@
-@using WebClient.Models
-
-<div class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+<div class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel"
+     aria-modal="true" role="dialog" style="display: block;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,28 +16,26 @@
         </div>
     </div>
 </div>
+
 @code {
-    [Parameter]
-    public CreateOrderResponse transaction { get; set; }
-    
-    [Parameter]
-    public EventCallback closeModal { get; set; }
-    
-    [Parameter]
-    public EventCallback payNow { get; set; }
-    
-    [Parameter]
-    public bool isProcessing { get; set; }
-    
+    [Parameter] public CreateOrderResponse transaction { get; set; }
+
+    [Parameter] public EventCallback closeModal { get; set; }
+
+    [Parameter] public EventCallback payNow { get; set; }
+
+    [Parameter] public bool isProcessing { get; set; }
+
     public async Task Close()
     {
-        if(!isProcessing)
+        if (!isProcessing)
             await closeModal.InvokeAsync();
     }
-    
+
     public async Task Pay()
     {
-        if(!isProcessing)
+        if (!isProcessing)
             await payNow.InvokeAsync();
     }
+
 }

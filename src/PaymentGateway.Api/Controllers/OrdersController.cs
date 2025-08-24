@@ -1,7 +1,5 @@
 ﻿using Application.DTOs;
-using Asp.Versioning;
 using Domain.Enums;
-using PaymentGateway.Api.Helpers;
 using RabbitMQ.Client;
 
 namespace PaymentGateway.Api.Controllers;
@@ -27,15 +25,15 @@ public class OrdersController(IOrderService orderService, INotifyService notifyS
 
         return result;
     }
-    
+
     [HttpPut("{id}", Name = "Update order")]
-    public async Task<Result<bool>> Update(string id,  [FromBody] UpdateOrderRequest request)
+    public async Task<Result<bool>> Update(string id, [FromBody] UpdateOrderRequest request)
     {
         var result = new Result<bool>();
         result.data = await orderService.UpdateOrderAsync(id, request.Status, request.ErrorCode, request.ErrorMessage);
         return result;
     }
-    
+
     [HttpGet(Name = "Get orders")]
     public async Task<Result<OrderPaging>> GetOrders([FromQuery] FilterOrderRequest request)
     {
@@ -61,7 +59,7 @@ public class OrdersController(IOrderService orderService, INotifyService notifyS
         result.data = await orderService.GetOrderByIdAsync(id);
         return result;
     }
-    
+
     [HttpDelete("{id}", Name = "Delete order")]
     public async Task<Result<bool>> Delete(string id)
     {
@@ -80,16 +78,16 @@ public class OrdersController(IOrderService orderService, INotifyService notifyS
         if (response.Status == TransactionStatus.SUCCESS.GetValue())
         {
             // Push to Queue
-            // var host = $"{configuration["RabbitMq:Host"]}:{configuration["RabbitMq:Port"]}";
-            var queueName = configuration["RabbitMq:Queue"];
+            var queueName = configuration["RabbitMQ:Queue"];
             var message = new OrderMessageRequest
             {
                 Id = response.RefId,
                 Status = response.Status,
-                UserId = order.UserId,
+                UserId = order.UserId
             };
-            await notifyService.RabbitmqPublish(conn ,queueName, queueName, message.ToJson());
+            await notifyService.RabbitmqPublish(conn, queueName, queueName, message.ToJson());
         }
+
         return result;
     }
 }

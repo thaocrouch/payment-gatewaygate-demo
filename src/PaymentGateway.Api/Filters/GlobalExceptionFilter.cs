@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System.Net;
+﻿using System.Net;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace PaymentGateway.Api.Filters;
 
@@ -17,7 +17,7 @@ public class GlobalExceptionFilter : IExceptionFilter
     {
         var request = context.HttpContext.Request;
         var url = $"{request.Method} {request.Path}{request.QueryString}";
-        string body = string.Empty;
+        var body = string.Empty;
         if (request.ContentLength > 0 && request.Body.CanSeek)
         {
             request.Body.Position = 0;
@@ -25,6 +25,7 @@ public class GlobalExceptionFilter : IExceptionFilter
             body = reader.ReadToEnd();
             request.Body.Position = 0;
         }
+
         // Log the exception details to trace
         _logger.LogError(context.Exception, "Unhandled exception at {Url}. Input: {Body}", url,
             string.IsNullOrEmpty(body) ? "(no body)" : body);

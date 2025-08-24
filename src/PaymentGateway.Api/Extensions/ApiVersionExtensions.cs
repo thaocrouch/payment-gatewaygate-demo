@@ -1,5 +1,3 @@
-using Asp.Versioning;
-
 namespace PaymentGateway.Api.Extensions;
 
 public static class ApiVersionExtensions

@@ -37,6 +37,7 @@ function error(message) {
 function log(message) {
     console.log(message);
 }
+
 function Call(name) {
     let fcObj = window[`${name}`];
     fcObj();

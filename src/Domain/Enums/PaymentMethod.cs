@@ -6,6 +6,7 @@ public enum PaymentMethod
     MOMO = 1,
     ZALOPAY = 2,
     VNPAY = 3,
+
     ALL = 3 // Config range value
     // any more
 }

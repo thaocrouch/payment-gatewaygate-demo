@@ -1,6 +1,6 @@
 namespace Application.Options;
 
-public class RabbitMqOption
+public class RabbitMqOption : OptionBase
 {
     public string Host { get; set; }
     public int Port { get; set; }

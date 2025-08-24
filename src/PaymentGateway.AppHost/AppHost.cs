@@ -1,7 +1,10 @@
+using PaymentGateway.AppHost;
+using Projects;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 // SQL Server
-var sqlPassword = builder.AddParameter("SqlPassword", secret: true);
+var sqlPassword = builder.AddParameter("SqlPassword", true);
 var sql = builder
     .AddSqlServer("sql")
     .WithImageTag("2022-latest")
@@ -9,30 +12,35 @@ var sql = builder
     .AddDatabase("PaymentGateway");
 
 // RabbitMQ
-var rabbitmqUserName = builder.AddParameter("RabbitmqUserName", secret: true);
-var rabbitmqPassword = builder.AddParameter("RabbitmqPassword", secret: true);
-var rabbitmqQueue = builder.AddParameter("RabbitmqQueue", secret: true);
+var rabbitmqUserName = builder.AddParameter("RabbitmqUserName", true);
+var rabbitmqPassword = builder.AddParameter("RabbitmqPassword", true);
+var rabbitmqQueue = builder.AddParameter("RabbitmqQueue", true);
 var rabbitmq = builder
     .AddRabbitMQ("rabbitmq", rabbitmqUserName, rabbitmqPassword)
     .WithManagementPlugin();
 
 // WebApi
-var api = builder.AddProject<Projects.PaymentGateway_Api>("webapi")
+var api = builder.AddProject<PaymentGateway_Api>("webapi")
     .WithReference(sql)
     .WithReference(rabbitmq)
     .WithEnvironment("ConnectionStrings:PaymentGateway", sql.Resource.ConnectionStringExpression)
-    .WithEnvironment("RabbitMq:Queue", rabbitmqQueue.Resource.Value)
+    .WithEnvironment("RabbitMQ:Queue", rabbitmqQueue.Resource.Value)
     .WithExternalHttpEndpoints()
+    .WithConfigurationSection(builder.Configuration.GetSection("Email"))
+    .WithConfigurationSection(builder.Configuration.GetSection("InternalSystem"))
     .WaitFor(sql)
     .WaitFor(rabbitmq);
 
-var notifyWorker = builder.AddProject<Projects.PaymentGateway_Worker>("worker")
+var notifyWorker = builder.AddProject<PaymentGateway_Worker>("worker")
     .WithReference(rabbitmq)
     .WithExternalHttpEndpoints()
+    .WithEnvironment("ConnectionStrings:PaymentGateway", sql.Resource.ConnectionStringExpression)
+    .WithConfigurationSection(builder.Configuration.GetSection("Email"))
+    .WithConfigurationSection(builder.Configuration.GetSection("InternalSystem"))
     .WaitFor(rabbitmq)
     .WaitFor(api);
 
-var webclient = builder.AddProject<Projects.WebClient>("webclient")
+var webclient = builder.AddProject<WebClient>("webclient")
     .WithEnvironment(ctx =>
     {
         var notifyWorkerEndpoint = notifyWorker.GetEndpoint("http");

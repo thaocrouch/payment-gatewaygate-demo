@@ -10,7 +10,7 @@ public static class OpenApiExtensions
         {
             // options.CustomSchemaIds(type => type.FullName);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Configuration", "App.xml");
-            options.IncludeXmlComments(filePath, includeControllerXmlComments: true);
+            options.IncludeXmlComments(filePath, true);
         });
         return services;
     }
@@ -26,12 +26,11 @@ public static class OpenApiExtensions
             {
                 var descriptions = app.DescribeApiVersions();
                 foreach (var description in descriptions)
-                {
-                    options.AddDocument(description.GroupName, title: $"API version {description.GroupName}", routePattern: $"/swagger/{description.GroupName}/swagger.json");
-                }
+                    options.AddDocument(description.GroupName, $"API version {description.GroupName}", $"/swagger/{description.GroupName}/swagger.json");
                 options.Title = "API Documents";
             });
         }
+
         return app;
     }
 }
